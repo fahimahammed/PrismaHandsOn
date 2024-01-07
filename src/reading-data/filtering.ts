@@ -46,10 +46,38 @@ const main = async () => {
 
     // NOT
     const postsWithNot = await prisma.post.findMany({
-        where: { NOT: [{ title: { contains: "Prisma" } }, { published: true }] },
+        where: {
+            NOT: [
+                {
+                    title: {
+                        contains: "Prisma"
+                    }
+                },
+                {
+                    published: false
+                }
+            ]
+        },
     });
 
-    console.log(postsWithNot)
+    // OR
+    const postsWithOr = await prisma.post.findMany({
+        where: {
+            OR: [
+                {
+                    title: {
+                        contains: 'f',
+                        mode: 'insensitive'
+                    }
+                },
+                {
+                    published: true
+                }
+            ]
+        }
+    })
+
+    console.log(postsWithOr)
 }
 
 main()
