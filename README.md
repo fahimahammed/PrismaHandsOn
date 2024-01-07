@@ -1,15 +1,66 @@
 # PrismaHandsOn
 
-### reading data
-1. find records
-    // find all
-    // Find first
-    // find first or throw
-    // find unique
-    // find unique or throw
-    // selet fields
+Welcome to PrismaHandsOn – your go-to resource for hands-on learning with Prisma ORM! Whether you're a beginner or an experienced developer looking to level up your skills, this repository is designed to guide you through the practical aspects of using Prisma in real-world scenarios.
 
-2. Relation queries
-- Fluent API
-- Nested reads
-- Relation filters
+## Retrieving Data
+
+### **Finding Records:**
+
+**1. Finding All Records:**
+
+- Use `prisma.model.findMany()` to retrieve all records of a specific model.
+- Example: `const allUsers = await prisma.user.findMany()`
+
+**2. Finding the First Record:**
+
+- Use `prisma.model.findFirst()` to retrieve the first record matching your criteria.
+- Example: `const firstUser = await prisma.user.findFirst({ where: { name: 'Alice' } })`
+
+**3. Finding the First Record or Throwing an Error:**
+
+- Use `prisma.model.findFirstOrThrow()` to retrieve the first record or throw an error if none is found.
+- Example: `const user = await prisma.user.findFirstOrThrow({ where: { id: 1 } })`
+
+**4. Finding a Unique Record:**
+
+- Use `prisma.model.findUnique()` to retrieve a single record based on unique fields, such as an email address.
+- Example: `const user = await prisma.user.findUnique({ where: { email: 'johndoe@example.com' } })`
+
+**5. Finding a Unique Record or Throwing an Error:**
+
+- Use `prisma.model.findUniqueOrThrow()` to retrieve a unique record or throw an error if none or multiple are found.
+
+**6. Selecting Specific Fields:**
+
+- Use the `select` option to fetch only the desired fields, improving performance.
+- Example: `const users = await prisma.user.findMany({ select: { name: true, email: true } })`
+
+### **Relation Queries:**
+
+**1. Fluent API:**
+
+- Prisma offers a fluent API for navigating relationships between models.
+- Example: `const posts = await prisma.user.findUnique({ where: { email: 'johndoe@example.com' } }).posts()`
+
+**2. Nested Reads:**
+
+- Fetch related data in a single query using `include` or nested `select`.
+- Example: `const userWithPosts = await prisma.user.findUnique({ where: { email: 'johndoe@example.com' }, include: { posts: true } })`
+
+**3. Relation Filters:**
+
+- Filter related records using `where` within nested reads.
+- Example: `const userWithRecentPosts = await prisma.user.findUnique({ where: { email: 'johndoe@example.com' }, include: { posts: { where: { published: true } } } })`
+
+**Key Points:**
+
+- Prisma generates type-safe queries based on your schema, ensuring correctness.
+- Queries are automatically optimized for performance.
+- Nested reads reduce the number of database round trips.
+- Relation filters allow for precise data retrieval.
+
+**Remember:**
+
+- Always import the Prisma Client in your code: `const { PrismaClient } = require('@prisma/client');`
+- Instantiate the client: `const prisma = new PrismaClient();`
+- Close the client after use: `await prisma.$disconnect();`
