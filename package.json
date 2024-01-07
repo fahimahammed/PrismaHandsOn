@@ -1,0 +1,22 @@
+{
+  "name": "prisma-hands-on",
+  "version": "1.0.0",
+  "description": "Welcome to PrismaHandsOn – your go-to resource for hands-on learning with Prisma ORM! Whether you're a beginner or an experienced developer looking to level up your skills, this repository is designed to guide you through the practical aspects of using Prisma in real-world scenarios.",
+  "main": "src/index.ts",
+  "repository": "https://github.com/fahimahammed/PrismaHandsOn.git",
+  "author": "Fahim Ahammed Firoz",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "5.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "prisma": "^5.7.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  }
+}
