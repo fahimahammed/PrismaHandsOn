@@ -4,7 +4,7 @@ import { title } from "process";
 const prisma = new PrismaClient();
 
 const main = async () => {
-    // AND
+    // AND & contains
     const posts = await prisma.post.findMany({
         where: {
             AND: [
@@ -21,9 +21,35 @@ const main = async () => {
         }
     });
 
+    // Equality
+    const techCategoryPosts = await prisma.category
+        .findFirst({
+            where: {
+                name: { contains: "Technology" }
+            },
+        })
+        .posts();
 
+    // Greater than
+    const users = await prisma.user.findMany({
+        where: {
+            age: {
+                gt: 250
+            },
+        },
+    });
 
-    console.log(posts)
+    // In array
+    const usersInArray = await prisma.user.findMany({
+        where: { age: { in: [26, 30, 35] } },
+    });
+
+    // NOT
+    const postsWithNot = await prisma.post.findMany({
+        where: { NOT: [{ title: { contains: "Prisma" } }, { published: true }] },
+    });
+
+    console.log(postsWithNot)
 }
 
 main()
