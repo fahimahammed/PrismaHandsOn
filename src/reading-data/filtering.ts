@@ -75,9 +75,17 @@ const main = async () => {
                 }
             ]
         }
-    })
+    });
 
-    console.log(postsWithOr)
+    const usersStartsWith = await prisma.user.findMany({
+        where: {
+            name: {
+                startsWith: "U"
+            }
+        }
+    });
+
+    console.log(usersStartsWith)
 }
 
 main()
