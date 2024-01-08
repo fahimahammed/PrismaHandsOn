@@ -11,9 +11,22 @@ const main = async () => {
     });
 
     // Limit-offset
-
+    const limitOffset = await prisma.post.findMany({
+        where: { published: true },
+        skip: 1,
+        take: 1,
+    });
     // Sort
-    console.log(page)
+    const posts = await prisma.post.findMany({
+        where: { published: true },
+        orderBy: { createdAt: "asc" },
+    });
+
+    const prolificAuthors = await prisma.user.findMany({
+        orderBy: { posts: { _count: "desc" } },
+    });
+
+    console.log(prolificAuthors)
 }
 
 main()
